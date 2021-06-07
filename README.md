@@ -1,2 +1,0 @@
-# hulkstore
-Test Hulk Store
