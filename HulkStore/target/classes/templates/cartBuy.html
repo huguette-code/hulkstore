@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Hulk Store</title>
+</head>
+
+<body>
+	<th:block th:include="/_header"></th:block>
+	<div align="center">
+		<h1>BUY PRODUCT</div></h1>
+		<br /><br />
+		<form action="#" th:action="@{/buyConfirm}" th:object="${order}"
+            method="post">
+		<table border="1" cellpadding="10">
+			<thead>
+				<tr>
+					<th>Product ID</th>
+					<th>Name</th>
+					<th>Quantity</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${product.id}">Product ID</td>
+					<td th:text="${product.name}">Name</td>
+					<td><input type="number" th:field="*{quantity}"/></td>
+					<td th:text="${product.price}">Price</td>
+				</tr>
+			</tbody>
+		</table>
+		<br><br>
+		Client Name: <input type="text" th:field="*{clientName}" />
+		<br><br>
+		<input type="hidden" th:field="*{idProducto}" value="${product.id}" />
+		<button type="submit" formmethod="post">Buy</button>
+		</form>
+</body>
+
+</html>

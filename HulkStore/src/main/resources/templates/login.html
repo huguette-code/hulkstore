@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Hulk Store - Login</title>
+</head>
+
+<body>
+<h2>Login Page</h2>
+	<form th:action="@{/loginValidate/}" method="post">
+		<label for="username">Username</label>: <input type="text"
+			id="username" name="username" autofocus="autofocus" /> <label
+			for="password">Password</label>: <input type="password" id="password"
+			name="password" /><input type="submit" formmethod="post" value="Log in" />
+	</form>
+	<span th:if="${errorMessage}" style="color: red;">Check you name and password please!</span>
+</body>
+
+</html>

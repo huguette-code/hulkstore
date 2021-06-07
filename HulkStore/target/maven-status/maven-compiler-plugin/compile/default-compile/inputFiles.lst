@@ -1,0 +1,13 @@
+/home/hcastillo/hulkStoreFinal/hulkstore/src/main/java/com/example/config/SecurityConfiguration.java
+/home/hcastillo/hulkStoreFinal/hulkstore/src/main/java/com/example/entities/User.java
+/home/hcastillo/hulkStoreFinal/hulkstore/src/main/java/com/example/entities/Order.java
+/home/hcastillo/hulkStoreFinal/hulkstore/src/main/java/com/example/provider/CustomAuthenticationProvider.java
+/home/hcastillo/hulkStoreFinal/hulkstore/src/main/java/com/example/service/OrderService.java
+/home/hcastillo/hulkStoreFinal/hulkstore/src/main/java/com/example/entities/Product.java
+/home/hcastillo/hulkStoreFinal/hulkstore/src/main/java/com/example/repository/OrderRepository.java
+/home/hcastillo/hulkStoreFinal/hulkstore/src/main/java/com/example/repository/ProductRepository.java
+/home/hcastillo/hulkStoreFinal/hulkstore/src/main/java/com/example/service/UserService.java
+/home/hcastillo/hulkStoreFinal/hulkstore/src/main/java/com/example/repository/UserRepository.java
+/home/hcastillo/hulkStoreFinal/hulkstore/src/main/java/com/example/controller/HulkStoreController.java
+/home/hcastillo/hulkStoreFinal/hulkstore/src/main/java/com/example/service/ProductService.java
+/home/hcastillo/hulkStoreFinal/hulkstore/src/main/java/com/example/HulkStoreApplication.java

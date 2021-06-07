@@ -1,0 +1,13 @@
+com/example/provider/CustomAuthenticationProvider.class
+com/example/entities/Product.class
+com/example/repository/UserRepository.class
+com/example/repository/ProductRepository.class
+com/example/service/ProductService.class
+com/example/service/UserService.class
+com/example/entities/User.class
+com/example/HulkStoreApplication.class
+com/example/service/OrderService.class
+com/example/repository/OrderRepository.class
+com/example/controller/HulkStoreController.class
+com/example/entities/Order.class
+com/example/config/SecurityConfiguration.class
