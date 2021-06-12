@@ -1,48 +1,46 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="/_header"></th:block>
+<div align="center">
+	<h1>Product List
+</div>
+</h1>
+<th:block th:include="/menu"></th:block>
+<br /><br />
 
-<head>
-	<meta charset="utf-8" />
-	<title>Hulk Store</title>
-</head>
-<body>
-	<th:block th:include="/_header"></th:block>
-	<div align="center">
-		<h1>Product List</div></h1>
-		<th:block sec:authorize="isAuthenticated()">
-			<a href="/new">Create New Product</a>
-		</th:block>	
-		<br /><br />
-		<table border="1" cellpadding="10">
-			<thead>
-				<tr>
-					<th>Product ID</th>
-					<th>Name</th>
-					<th>Quantity</th>
-					<th>Price</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="product : ${listProducts}" class="item" >
-					<td th:text="${product.id}">Product ID</td>
-					<td th:text="${product.name}">Name</td>
-					<td th:text="${product.quantity}">Quantity</td>
-					<td th:text="${product.price}">Price</td>
-					<td>
-						<div sec:authorize="isAuthenticated()">
-							<a th:href="@{'/edit/' + ${product.id}}" class="buttons">Edit</a>
-							&nbsp;&nbsp;&nbsp;
-							<a th:href="@{'/delete/' + ${product.id}}" class="buttons" >Delete</a>
-						</div>
-						<div sec:authorize="isAnonymous()">
-							<a th:href="@{'/buy/' + ${product.id}}" class="buttons" onclick="addProductCard('${product.id}','${product.name}','${product.price}')">Add Cart</a>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-				
+<div class="content" th:each="product : ${listProducts}">
+	<div class="left">
+		<img class="card-img-top" src="https://dummyimage.com/200.png/09f/fff" alt="Card image cap">
+		<br><br>
+		<b th:text="${product.name}"></b>
+		<br>
+		<h4 th:remove="tag"> Product ID:</h4><span th:text="${product.id}"></span>
+		<br>
+		<h4 th:remove="tag"> Quantity: </h4><span th:text="${product.quantity}"></span>
+		<br>
+		<h4 th:remove="tag">Price: $</h4><span th:text="${product.price}"></span>
+		<br>
+		<div>
+			<div sec:authorize="isAuthenticated()">
+				<a th:href="@{'/edit/' + ${product.id}}" class="buttons">
+					<img class="card-img-top" src="https://image.flaticon.com/icons/png/512/84/84380.png" width="25px">
+				</a>
+				&nbsp;&nbsp;&nbsp;
+				<a th:href="@{'/delete/' + ${product.id}}" class="buttons">
+					<img class="card-img-top"
+						src="https://cdn.iconscout.com/icon/premium/png-256-thumb/delete-1961630-1659595.png"
+						width="25px">
+				</a>
+			</div>
+			<div sec:authorize="isAnonymous()">
+				<a th:href="@{'/buy/' + ${product.id}}" class="buttons"
+					onclick="addProductCard('${product.id}','${product.name}','${product.price}')">
+					<img class="card-img-top"
+						src="https://www.iconpacks.net/icons/2/free-add-to-cart-icon-3046-thumb.png" width="25px">
+				</a>
+			</div>
+
+		</div>
+	</div>
+</div>
 </body>
 
 </html>
