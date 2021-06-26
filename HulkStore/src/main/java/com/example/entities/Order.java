@@ -17,7 +17,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="order")
+@Table(name="orders")
 public class Order implements Serializable {
 	/**
 	 * 
@@ -26,7 +26,7 @@ public class Order implements Serializable {
 
 	@Id
 	@Column(name="id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Column(name="clientName",nullable = false, length = 30)

@@ -28,4 +28,6 @@ public class UserTest {
     public void testDeleteUser(){
     	userService.delete(1);
     }
+    
 }
+

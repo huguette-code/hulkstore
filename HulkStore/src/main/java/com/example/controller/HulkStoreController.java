@@ -41,7 +41,7 @@ public class HulkStoreController {
 	
 	@RequestMapping("/")
 	public String viewHomePage(Model model) {
-	    List<Product> listProducts = service.listAll();
+		List<Product> listProducts = service.listAll();
 	    model.addAttribute("listProducts", listProducts);
 	     
 	    return "productList";
@@ -98,6 +98,7 @@ public class HulkStoreController {
 	    Product product = service.get(id);
 	    mav.addObject("product", product);
 	    Order order = new Order();
+	    order.setId(System.currentTimeMillis());
 	    order.setIdProducto(product.getId());
 	    mav.addObject("order", order);
 	    return mav;
@@ -114,5 +115,14 @@ public class HulkStoreController {
 	    
 	    return "redirect:/";
 	}
+	
+	@RequestMapping("/orderList")
+	public String orderList(Model model) {
+	    List<Order> orders = orderService.listAll();
+	    model.addAttribute("listOrder", orders);
+	     
+	    return "ordersList";
+	}
+	
 	
 }

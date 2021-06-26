@@ -1,0 +1,23 @@
+<th:block th:include="/_header"></th:block>
+<div align="center">
+	<h1>Order List
+</div>
+</h1>
+<th:block th:include="/menu"></th:block>
+<br /><br />
+
+<div class="content" th:each="order : ${listOrder}">
+	<div class="left">
+		<b th:text="${order.id}"></b>
+		<br>
+		<h4 th:remove="tag"> Client Name:</h4><span th:text="${order.clientName}"></span>
+		<br>
+		<h4 th:remove="tag"> Product ID: </h4><span th:text="${order.idProducto}"></span>
+		<br>
+		<h4 th:remove="tag">Quantity: $</h4><span th:text="${order.quantity}"></span>
+		<br>
+	</div>
+</div>
+</body>
+
+</html>
