@@ -11,6 +11,7 @@ import com.example.repository.UserRepository;
  
 @Service
 @Transactional
+
 public class UserService {
  
     @Autowired
@@ -31,4 +32,5 @@ public class UserService {
     public void delete(long id) {
         repo.deleteById(id);
     }
+
 }

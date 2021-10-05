@@ -1,21 +1,27 @@
 <th:block th:include="/_header"></th:block>
+<th:block th:include="/menu" ></th:block>
+<br />
 <div align="center">
 	<h1>Edit Product</h1>
-	<br />
-	<form action="#" th:action="@{/save}" th:object="${product}" method="post">
+</div>
+<div align="center">
+	<form action="#" th:action="@{/save}" th:object="${product}"
+		method="post">
 
 		<table border="0" cellpadding="10">
 			<tr>
 				<td>Product ID:</td>
-				<td>
-					<input type="text" th:field="*{id}" readonly="readonly" />
+				<td><input type="text" th:field="*{id}" readonly="readonly" />
 				</td>
 			</tr>
-			<tr>
+			<tr>	
 				<td>Product Name:</td>
-				<td>
-					<input type="text" th:field="*{name}" />
-				</td>
+				<td><input type="text" th:field="*{name}" /></td>
+			</tr>
+			<tr>
+				                    
+				<td>Product Brand:</td>                     
+				<td><input type="text" th:field="*{brand}" /></td>                 
 			</tr>
 			<tr>
 				<td>Price:</td>
@@ -26,7 +32,10 @@
 				<td><input type="text" th:field="*{quantity}" /></td>
 			</tr>
 			<tr>
-				<td colspan="2"><button type="submit" formmethod="post">Save</button> </td>
+				<td colspan="2" style="text-align: center;">
+						<button type="button" onclick='javascript:window.history.back()' >Cancel</button>
+						<button type="submit" formmethod="post">Save</button>
+				</td>
 			</tr>
 		</table>
 	</form>

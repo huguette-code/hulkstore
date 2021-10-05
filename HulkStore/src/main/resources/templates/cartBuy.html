@@ -1,33 +1,75 @@
-	<th:block th:include="/_header"></th:block>
+<th:block th:include="/_header"></th:block>
+<th:block th:include="/menu"></th:block>
+<br />
+<div align="center">
+	<h1>BUY PRODUCT</h1>
+</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+		$( document ).ready(function() {
+			jQuery('#total_order').text("Total: "+jQuery('#price').text());
+			jQuery('#total_order_f').val(jQuery('#price').text());
+		});	
+		
+		function updateValueTotal(){
+			var quantity = jQuery('#comboQuantity option:selected').text();
+			var total_order = jQuery('#price').text() * quantity; 
+			console.log("Price:"+jQuery('#price').text());
+			console.log("quantity:"+quantity);
+			jQuery('#total_order').text("Total: "+total_order);
+			jQuery('#total_order_f').val(total_order);
+		}
+	</script>
 	<div align="center">
-		<h1>BUY PRODUCT</div></h1>
-		<br /><br />
-		<form action="#" th:action="@{/buyConfirm}" th:object="${order}"
-            method="post">
-		<table border="1" cellpadding="10">
-			<thead>
-				<tr>
-					<th>Product ID</th>
-					<th>Name</th>
-					<th>Quantity</th>
-					<th>Price</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td th:text="${product.id}">Product ID</td>
-					<td th:text="${product.name}">Name</td>
-					<td><input type="number" th:field="*{quantity}"/></td>
-					<td th:text="${product.price}">Price</td>
-				</tr>
-			</tbody>
-		</table>
-		<br><br>
-		Client Name: <input type="text" th:field="*{clientName}" />
-		<br><br>
-		<input type="hidden" th:field="*{idProducto}" value="${product.id}" />
-		<button type="submit" formmethod="post">Buy</button>
-		</form>
+			<form action="#" th:action="@{/buyConfirm}" th:object="${order}"
+	            method="post">
+			<table border="1" cellpadding="10">
+				<thead>
+					<tr>
+						<th>Product ID</th>
+						<th>Name</th>
+						<th>Quantity</th>
+						<th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td th:text="${product.id}">Product ID</td>
+						<td th:text="${product.name}">Name</td>
+						<td>
+							<select th:field="*{quantity}" onchange="updateValueTotal()" id="comboQuantity">
+							    <option th:each="i : ${#numbers.sequence(1, product.quantity)}" th:value="${i}" th:text="${i}">
+							    </option>
+							</select>
+						</td>
+						<td th:text="${product.price}" id="price">Price</td>
+					</tr>
+					<tr>
+						<td colspan="1">Description:</td>
+						<td colspan="3"><input type="text" th:field="*{description}" /></td>
+					</tr>
+						
+					<tr>
+					<tr>
+						<td colspan="4" th:text="Client"></td>
+					<tr>
+					<tr>
+						<td colspan="4" th:text="${total_order != null?'Total:'+total_order:'Total:'}" id="total_order"></td>
+					<tr>
+				</tbody>
+			</table>
+			<br><br>
+	<!-- 		Client Name: <input type="text" th:field="*{clientName}" /> -->
+			<br><br>
+			<span th:if="${stockErrorMessage}" style="color: red;">sadasd${stockErrorMessage}</span>
+			<input type="hidden" th:field="*{product_order.id}" value="${product.id}" />
+			<input type="hidden" th:field="*{state_order}" value="${state_order}" />
+			<input type="hidden" th:field="*{total_order}" id="total_order_f" />
+			<button type="button" onclick='javascript:window.history.back()' >Cancel</button>
+			<button type="submit" formmethod="post">Buy</button>
+			</form>
+		</div>	
 </body>
 
 </html>

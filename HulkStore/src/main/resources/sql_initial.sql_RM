@@ -1,0 +1,78 @@
+#usuarios, roles, productos, carrito de compras
+
+CREATE TABLE IF NOT EXISTS `hs_user` (
+  `id` int(5) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `name` varchar(35) NOT NULL,
+  `surname` varchar(35) NOT NULL,
+  `adress` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(80) NOT NULL,
+  `date_register` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_hs_user_email` (`email`),
+  UNIQUE KEY `UK_hs_username` (`username`)
+  
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `hs_rol` (
+  `id_rol` int(5) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `name` varchar(35) NOT NULL,
+  PRIMARY KEY (`id_rol`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `hs_user_rol` (
+  `id_user_rol` int(5) unsigned zerofill NOT NULL AUTO_INCREMENT,
+   id_user int(5) NOT NULL,
+   id_rol int(5) NOT NULL,
+  PRIMARY KEY (`id_user_rol`),
+  CONSTRAINT FK_hs_id_user FOREIGN KEY(id_user) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT FK_hs_id_rol FOREIGN KEY(id_rol) REFERENCES rol(id) ON DELETE CASCADE ON UPDATE CASCADE 
+  
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `hs_product` (
+  `id_product` int(5) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `name` varchar(35) NOT NULL,
+  `brand` varchar(35) NOT NULL,
+  `quantity` int(5) NOT NULL DEFAULT 0,
+  `price` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `date_register` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_product`),  
+  UNIQUE KEY `UK_hs_product_name` (`name`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `hs_order` (
+  `id_order` int(5) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `date_order` datetime DEFAULT CURRENT_TIMESTAMP,
+  `total_order` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `id_user_order` varchar(35) NOT NULL,  
+  `state_order` varchar(35) NOT NULL,
+   CONSTRAINT FK_hs_id_user_order FOREIGN KEY(id_user_order) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE,
+   PRIMARY KEY (`id_order`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `hs_order` (
+  `id_order` int(5) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `date_order` datetime DEFAULT CURRENT_TIMESTAMP,
+  `total_order` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `id_user_order` varchar(35) NOT NULL,  
+  `state_order` varchar(35) NOT NULL,
+   CONSTRAINT FK_hs_id_user_order FOREIGN KEY(id_user_order) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE,
+   PRIMARY KEY (`id_order`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `hs_order_product` (
+  `id_order_product` int(5) unsigned zerofill NOT NULL AUTO_INCREMENT,
+   id_order int(5) NOT NULL,
+   id_product int(5) NOT NULL,
+   `quantity` int(5) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_order_product`),
+  CONSTRAINT FK_hs_id_order FOREIGN KEY(id_order) REFERENCES hs_order(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT FK_hs_id_product FOREIGN KEY(id_product) REFERENCES hs_product(id) ON DELETE CASCADE ON UPDATE CASCADE 
+  
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+INSERT INTO hs_rol (name) VALUES('ADMIN');
+INSERT INTO hs_rol (name) VALUES('USER');

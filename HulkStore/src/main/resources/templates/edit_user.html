@@ -1,0 +1,54 @@
+<th:block th:include="/_header"></th:block>
+<th:block th:include="/menu"></th:block>
+<br />
+<div align="center">
+	<h1>Edit User</h1>
+</div>
+
+<div align="center">
+	<br />
+	<form action="#" th:action="@{/saveUser}" th:object="${user}"
+		method="post">
+
+		<table border="0" cellpadding="10">
+			<tr>
+				<td>User ID:</td>
+				<td><input type="text" th:field="*{id}" readonly="readonly" />
+				</td>
+			</tr>
+			<tr>
+				<td>User Name:</td>
+				<td><input type="text" th:field="*{name}" /></td>
+			</tr>
+			<tr>
+				<td>User Surname:</td>
+				<td><input type="text" th:field="*{surname}" /></td>
+			</tr>
+			<tr>
+				<td>UserName:</td>
+				<td><input type="text" th:field="*{username}" /></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><input type="text" th:field="*{password}" /></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><input type="text" th:field="*{email}" /></td>
+			</tr>
+			<tr>
+				<td>Address:</td>
+				<td><input type="text" th:field="*{address}" /></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					<button type="button" onclick='javascript:window.history.back()' >Cancel</button>
+					<button type="submit" formmethod="post">Save</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+</body>
+
+</html>

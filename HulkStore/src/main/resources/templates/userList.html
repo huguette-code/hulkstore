@@ -1,0 +1,48 @@
+<th:block th:include="/_header"></th:block>
+<th:block th:include="/menu"></th:block>
+<br />
+<div align="center">
+	<h1>User List</h1>
+	<th:block sec:authorize="isAuthenticated()">
+		<a href="/newUser" class="buttons">
+			<img src="https://cdn-icons-png.flaticon.com/512/992/992651.png" width="25px">&nbsp;Add New User
+		</a>
+	</th:block>	
+</div>
+<br />
+<div align="center">
+<table border="1" style="margin:20px;text-align: center;">
+    <thead>
+        <tr>
+            <th> ID </th>
+            <th> NAME </th>
+            <th> USERNAME </th>
+            <th> DATE REGISTER </th>
+            <th> USER STATE </th>
+            <th> ACTION </th>
+        </tr>
+    </thead>
+    <tbody>
+	<tr th:if="${userList.empty}">
+            <td colspan="2"> No Users Available </td>
+        </tr>
+        
+        <tr th:each="user : ${userList}">
+            <td><span th:text="${user.id}"></span></td>
+            <td><span th:text="${user.name} + ' ' + ${user.surname}"></span></td>
+            <td><span th:text="${user.username}"></span></td>
+            <td><span th:text="${user.date_register}"></span></td>
+            <td><span th:text="${user.state}"></span></td>
+            <td>
+            	<a th:href="@{'/user/delete/' + ${user.id}}" class="buttons">
+					<img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/delete-1961630-1659595.png" width="25px">
+				</a>
+				<a th:href="@{'/user/edit/' + ${user.id}}" class="buttons">
+					<img src="https://image.flaticon.com/icons/png/512/84/84380.png" width="25px">
+				</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<th:block th:include="/_footer">sddd</th:block>

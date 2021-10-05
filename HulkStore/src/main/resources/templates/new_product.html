@@ -1,7 +1,10 @@
-	<th:block th:include="/_header"></th:block>
+<th:block th:include="/_header"></th:block>
+<th:block th:include="/menu"></th:block>
+<br />
+<div align="center">
+	<h1>Create New Product</h1>
+</div>
     <div align="center">
-        <h1>Create New Product</h1>
-        <br />
         <form action="#" th:action="@{/save}" th:object="${product}"
             method="post">
  
@@ -9,6 +12,10 @@
                 <tr>
                     <td>Product Name:</td>
                     <td><input type="text" th:field="*{name}" /></td>
+                </tr>
+                <tr>
+                    <td>Brand:</td>
+                    <td><input type="text" th:field="*{brand}" /></td>
                 </tr>
                 <tr>
                     <td>Price:</td>
@@ -19,7 +26,10 @@
                     <td><input type="number" th:field="*{quantity}" /></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><button type="submit" formmethod="post">Save</button> </td>
+                    <td colspan="2" style="text-align: center;">
+						<button type="button" onclick='javascript:window.history.back()' >Cancel</button>
+						<button type="submit" formmethod="post">Save</button> 
+					</td>
                 </tr>
             </table>
         </form>

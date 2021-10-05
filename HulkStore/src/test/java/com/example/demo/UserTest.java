@@ -19,9 +19,9 @@ public class UserTest {
         User user = new User();
         user.setEmail("h@mail.com");
         user.setName("Carlos");
-        user.setNickname("User1");
+        //user.setNickname("User1");
         user.setPassword("password");
-        user.setRol("ADMIN");
+        //user.setRol("ADMIN");
         userService.save(user);
     }
     @Test

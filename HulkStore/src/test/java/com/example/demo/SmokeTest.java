@@ -2,17 +2,16 @@ package com.example.demo;
 
 import static org.junit.Assert.assertTrue;
 
+import com.example.controller.ProductController;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import com.example.controller.HulkStoreController;
 
 @SpringBootTest
 public class SmokeTest {
 
 	@Autowired
-	private HulkStoreController controller;
+	private ProductController controller;
 
 	@Test
 	public void contextLoads() throws Exception {

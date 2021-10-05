@@ -1,14 +1,25 @@
 <th:block th:include="/_header"></th:block>
-<div align="center">
-	<h1>Product List
-</div>
-</h1>
 <th:block th:include="/menu"></th:block>
-<br /><br />
+<br />
+<div align="center">
+	<h1>Product List</h1>
+	<th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
+	<a href="/new" class="buttons">
+		<img src="https://cdn-icons-png.flaticon.com/512/992/992651.png" width="25px">&nbsp;Add New Product
+	</a>
+</th:block>
+</div>
+<br />
 
-<div class="content" th:each="product : ${listProducts}">
-	<div class="left">
-		<img class="card-img-top" src="https://dummyimage.com/200.png/09f/fff" alt="Card image cap">
+
+
+
+<div th:if="${listProducts.empty}">
+ <b>No Products Available</b>
+</div>	
+<div class="content" th:each="product : ${listProducts}" style="text-align: center;">
+	<div class="left" th:if="${product.quantity > 0}">
+		<img src="https://dummyimage.com/200.png/09f/fff" alt="Card image cap">
 		<br><br>
 		<b th:text="${product.name}"></b>
 		<br>
@@ -19,28 +30,27 @@
 		<h4 th:remove="tag">Price: $</h4><span th:text="${product.price}"></span>
 		<br>
 		<div>
-			<div sec:authorize="isAuthenticated()">
+			<div sec:authorize="hasAuthority('ROLE_ADMIN')" >
 				<a th:href="@{'/edit/' + ${product.id}}" class="buttons">
-					<img class="card-img-top" src="https://image.flaticon.com/icons/png/512/84/84380.png" width="25px">
+					<img src="https://image.flaticon.com/icons/png/512/84/84380.png" width="25px">
 				</a>
 				&nbsp;&nbsp;&nbsp;
 				<a th:href="@{'/delete/' + ${product.id}}" class="buttons">
-					<img class="card-img-top"
-						src="https://cdn.iconscout.com/icon/premium/png-256-thumb/delete-1961630-1659595.png"
+					<img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/delete-1961630-1659595.png"
 						width="25px">
 				</a>
 			</div>
-			<div sec:authorize="isAnonymous()">
+			<div sec:authorize="hasAuthority('ROLE_USER')">
 				<a th:href="@{'/buy/' + ${product.id}}" class="buttons"
 					onclick="addProductCard('${product.id}','${product.name}','${product.price}')">
-					<img class="card-img-top"
-						src="https://www.iconpacks.net/icons/2/free-add-to-cart-icon-3046-thumb.png" width="25px">
+					<img src="https://www.iconpacks.net/icons/2/free-add-to-cart-icon-3046-thumb.png" width="25px">
 				</a>
 			</div>
 
 		</div>
 	</div>
 </div>
+
 </body>
 
 </html>

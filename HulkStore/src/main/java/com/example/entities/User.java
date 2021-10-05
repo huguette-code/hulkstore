@@ -4,44 +4,59 @@
 package com.example.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 /**
  * @author hcastillo
  *
  */
 @Entity
-@Table(name = "user")
+@Table(name = "hs_user")
 public class User implements Serializable {
-	
+
 	private static final long serialVersionUID = -4020533874170227294L;
 
 	@Id
-	@Column(name="id")
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name="name",nullable = false, length = 50)
+
+	@Column(name = "name", nullable = false, length = 35)
 	private String name;
-	
-	@Column(name="email",nullable = false, length = 50, unique = true)
+
+	@Column(name = "surname", nullable = false, length = 35)
+	private String surname;
+
+	@Column(name = "Address", nullable = false, length = 100)
+	private String address;
+
+	@Column(name = "email", nullable = false, length = 100, unique = true)
 	private String email;
-	
-	@Column(name="nickname",nullable = false, length = 50)
-	private String nickname;
-	
-	@Column(name="password",nullable = false, length = 128)
+
+	@Column(name = "username", nullable = false, length = 100, unique = true)
+	private String username;
+
+	@Column(name = "password", nullable = false, length = 128)
 	private String password;
-	
-	@Column(name="rol",nullable = false, length = 30)
-	private String rol;
-	
+
+	@UpdateTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "date_register")
+	private Date date_register;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id_rol"))
+	private Collection<Role> roles;
+
+	@Column(name = "state", nullable = false)
+	private int state;
+
+
 	/**
 	 * @return the id
 	 */
@@ -99,33 +114,91 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the nickname
+	 * @return the surname
 	 */
-	public String getNickname() {
-		return nickname;
+	public String getSurname() {
+		return surname;
 	}
 
 	/**
-	 * @param nickname the nickname to set
+	 * @param surname the surname to set
 	 */
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	/**
-	 * @return the rol
+	 * @return the username
 	 */
-	public String getRol() {
-		return rol;
+	public String getUsername() {
+		return username;
 	}
 
 	/**
-	 * @param rol the rol to set
+	 * @param username the username to set
 	 */
-	public void setRol(String rol) {
-		this.rol = rol;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	
-		
-	
+
+	/**
+	 * @return the date_register
+	 */
+	public Date getDate_register() {
+		return date_register;
+	}
+
+	/**
+	 * @param date_register the date_register to set
+	 */
+	public void setDate_register(Date date_register) {
+		this.date_register = date_register;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+
+	/**
+	 *
+	 * @param roles
+	 */
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public int getState() {
+		return state;
+	}
+
+	/**
+	 *
+	 * @param state
+	 */
+	public void setState(int state) {
+		this.state = state;
+	}
 }
+

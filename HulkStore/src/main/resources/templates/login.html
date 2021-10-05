@@ -62,7 +62,7 @@
 			padding-top: 16px;
 		}
 	</style>
-	<form th:action="@{/loginValidate/}" method="post">
+	<form th:action="@{/login}" method="post">
 		<div class="container">
 			<div class="imgcontainer">
 				<img src="https://i.pinimg.com/originals/e9/80/f7/e980f7be96698681e64bac92221cfb7d.png" alt="Avatar"
@@ -76,7 +76,7 @@
 
 			<button type="submit">Login</button>
 			<br>
-			<span th:if="${errorMessage}" style="color: red;">Check you name and password please!</span>
+			<span th:if="${param.error}" style="color: red;">Check you name and password please!</span>
 		</div>
 	</form>
 

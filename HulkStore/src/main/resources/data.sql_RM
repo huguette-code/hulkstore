@@ -1,0 +1,2 @@
+INSERT INTO hs_rol (name) VALUES('ADMIN');
+INSERT INTO hs_rol (name) VALUES('USER');
