@@ -26,11 +26,11 @@
         <tr th:each="order : ${listOrder}">
             <td><span th:text="${order.id}"></span></td>
             <td><span th:text="${order.description}"></span></td>
-            <td><span th:text="${order.product_order.name}"></span></td>
+            <td><span th:text="${order.productOrder.name}"></span></td>
             <td><span th:text="${order.quantity}"></span></td>
-            <td><span th:text="${order.date_order}"></span></td>
-            <td><span th:text="${order.state_order}"></span></td>
-            <td><span th:text="${order.total_order}"></span></td>
+            <td><span th:text="${order.dateOrder}"></span></td>
+            <td><span th:text="${order.stateOrder}"></span></td>
+            <td><span th:text="${order.totalOrder}"></span></td>
             <td>
             	<a th:href="@{'/order/delete/' + ${order.id}}" class="buttons">
 					<img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/delete-1961630-1659595.png" width="25px">

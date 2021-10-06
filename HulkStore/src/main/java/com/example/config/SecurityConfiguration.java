@@ -1,6 +1,7 @@
 package com.example.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,6 +18,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     final DataSource dataSource;
     private final AccessDeniedHandler accessDeniedHandler;
+
+    @Value("${spring.home.path}")
+    private String homePath;
 
     @Autowired
     public SecurityConfiguration(AccessDeniedHandler accessDeniedHandler, DataSource dataSource) {
@@ -46,13 +50,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                //"/new", "/edit/**", "/delete/**","/buy/**","/orderList","/order/**","/userList","/user/**"
-                .antMatchers( "/home","/new", "/edit/**", "/delete/**","/buy/**","/orderList","/order/**","/userList","/user/**").permitAll()
+                .antMatchers( homePath,"/new", "/edit/**", "/delete/**","/buy/**","/orderList","/order/**","/userList","/user/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl(homePath)
                 .permitAll()
                 .and()
                 .logout()
@@ -60,7 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 
-        http.logout().logoutSuccessUrl("/home");
+        http.logout().logoutSuccessUrl(homePath);
     }
     
     @Bean

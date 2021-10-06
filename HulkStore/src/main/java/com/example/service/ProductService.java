@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,11 @@ public class ProductService {
     }
      
     public Product get(long id) {
-        return repo.findById(id).get();
+        Optional<Product> value = repo.findById(id);
+        if(value.isPresent()){
+            return value.get();
+        }
+        return null;
     }
      
     public void delete(long id) {

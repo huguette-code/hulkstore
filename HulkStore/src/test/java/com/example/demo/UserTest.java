@@ -8,6 +8,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.example.entities.User;
 import com.example.service.UserService;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserTest {
 
@@ -23,10 +26,12 @@ public class UserTest {
         user.setPassword("password");
         //user.setRol("ADMIN");
         userService.save(user);
+        assertNotEquals(userService.get(user.getId()), null);
     }
     @Test
     public void testDeleteUser(){
-    	userService.delete(1);
+        userService.delete(1);
+        assertEquals(null, userService.get(1));
     }
     
 }

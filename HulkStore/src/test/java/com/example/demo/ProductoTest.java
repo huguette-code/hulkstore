@@ -45,7 +45,7 @@ public class ProductoTest {
     	
     	List<Product> products = productService.listAll();
     	
-    	assertEquals(products.size(), 2);
+    	assertEquals(2, products.size());
     	
     	p.setName(p1.getName());
     	productService.save(p1);

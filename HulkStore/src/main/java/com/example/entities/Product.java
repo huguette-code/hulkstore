@@ -4,14 +4,12 @@
 package com.example.entities;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -42,10 +40,7 @@ public class Product implements Serializable {
 	
 	@Column(name="price",nullable = false)
 	private double price;
-	
-	/*@ManyToMany
-	Set<Order> productInOrders;*/
-	
+
 	/**
 	 * @return the price
 	 */
@@ -94,25 +89,21 @@ public class Product implements Serializable {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
+
+	/**
+	 *
+	 * @return
+	 */
 	public String getBrand() {
 		return brand;
 	}
+
+	/**
+	 *
+	 * @param brand
+	 */
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
-	/**
-	 * @return the productInOrders
-	 */
-	/*public Set<Order> getProductInOrders() {
-		return productInOrders;
-	}*/
-	/**
-	 * @param productInOrders the productInOrders to set
-	 */
-	/*public void setProductInOrders(Set<Order> productInOrders) {
-		this.productInOrders = productInOrders;
-	}*/
-	
 
 }

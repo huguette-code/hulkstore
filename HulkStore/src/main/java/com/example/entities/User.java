@@ -47,7 +47,7 @@ public class User implements Serializable {
 	@UpdateTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "date_register")
-	private Date date_register;
+	private Date dateRegister;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "id_rol"))
@@ -142,17 +142,17 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @return the date_register
+	 * @return the dateRegister
 	 */
-	public Date getDate_register() {
-		return date_register;
+	public Date getDateRegister() {
+		return dateRegister;
 	}
 
 	/**
-	 * @param date_register the date_register to set
+	 * @param dateRegister the dateRegister to set
 	 */
-	public void setDate_register(Date date_register) {
-		this.date_register = date_register;
+	public void setDateRegister(Date dateRegister) {
+		this.dateRegister = dateRegister;
 	}
 
 	/**

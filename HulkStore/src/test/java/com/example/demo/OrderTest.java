@@ -12,6 +12,9 @@ import com.example.entities.Order;
 import com.example.repository.OrderRepository;
 import com.example.service.OrderService;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class OrderTest {
@@ -27,15 +30,16 @@ public class OrderTest {
 
     @Test
     public void testCreateOrder(){
-        /*Order order = new Order();
-        order.setClientName("TEST");
-        order.setIdProducto(1L);
+        Order order = new Order();
+        order.setId(1L);
         order.setQuantity(2);
-        orderService.save(order);*/
+        orderService.save(order);
+        assertNotEquals(orderService.get(order.getId()), null);
     }
     
     @Test
     public void testDeleteOrder(){
         orderService.delete(1);
+        assertEquals(null, orderService.get(1));
     }
 }

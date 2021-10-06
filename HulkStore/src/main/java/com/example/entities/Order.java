@@ -30,29 +30,83 @@ public class Order implements Serializable {
 	@UpdateTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="date_order")
-	private Date date_order;
+	private Date dateOrder;
 	
 	@Column(name="total_order", nullable = false)
-	private Double total_order;
+	private Double totalOrder;
 	
 	@Column(name="state_order", nullable = false)
-	private String state_order;
+	private String stateOrder;
 
 	@OneToOne
-	//@JoinTable(name="hs_user")
 	@JoinColumn(name="id")
-	private User user_order;
+	private User userOrder;
 
 	@OneToOne
-	//@JoinTable(name="hs_product")
 	@JoinColumn(name="id_product")
-	private Product product_order;
+	private Product productOrder;
 
 	@Column(name="quantity", nullable = false)
 	private int quantity;
 	
 	@Column(name="description", nullable = false)
 	private String description;
+
+	public Date getDateOrder() {
+		return dateOrder;
+	}
+
+	public void setDateOrder(Date dateOrder) {
+		this.dateOrder = dateOrder;
+	}
+
+	public Double getTotalOrder() {
+		return totalOrder;
+	}
+
+	public void setTotalOrder(Double totalOrder) {
+		this.totalOrder = totalOrder;
+	}
+
+	public String getStateOrder() {
+		return stateOrder;
+	}
+
+	public void setStateOrder(String stateOrder) {
+		this.stateOrder = stateOrder;
+	}
+
+	public User getUserOrder() {
+		return userOrder;
+	}
+
+	public void setUserOrder(User userOrder) {
+		this.userOrder = userOrder;
+	}
+
+	public Product getProductOrder() {
+		return productOrder;
+	}
+
+	public void setProductOrder(Product productOrder) {
+		this.productOrder = productOrder;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public Long getId() {
 		return id;
@@ -62,103 +116,6 @@ public class Order implements Serializable {
 		this.id = id;
 	}
 
-	/**
-	 * @return the date_order
-	 */
-	public Date getDate_order() {
-		return date_order;
-	}
-
-	/**
-	 * @param date_order the date_order to set
-	 */
-	public void setDate_order(Date date_order) {
-		this.date_order = date_order;
-	}
-
-	/**
-	 * @return the total_order
-	 */
-	public Double getTotal_order() {
-		return total_order;
-	}
-
-	/**
-	 * @param total_order the total_order to set
-	 */
-	public void setTotal_order(Double total_order) {
-		this.total_order = total_order;
-	}
-
-	/**
-	 * @return the user_order
-	 */
-	public User getUser_order() {
-		return user_order;
-	}
-
-	/**
-	 * @param user_order the user_order to set
-	 */
-	public void setUser_order(User user_order) {
-		this.user_order = user_order;
-	}
-
-	/**
-	 * @return the state_order
-	 */
-	public String getState_order() {
-		return state_order;
-	}
-
-	/**
-	 * @param state_order the state_order to set
-	 */
-	public void setState_order(String state_order) {
-		this.state_order = state_order;
-	}
-
-	/**
-	 * @return the product_order
-	 */
-	public Product getProduct_order() {
-		return product_order;
-	}
-
-	/**
-	 * @param product_order the product_order to set
-	 */
-	public void setProduct_order(Product product_order) {
-		this.product_order = product_order;
-	}
-
-	/**
-	 * @return the quantity
-	 */
-	public int getQuantity() {
-		return quantity;
-	}
-
-	/**
-	 * @param quantity the quantity to set
-	 */
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 }
 

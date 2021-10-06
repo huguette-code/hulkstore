@@ -15,7 +15,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/newUser", method = RequestMethod.GET)
+    @GetMapping("/newUser")
     public String showNewUserPage(Model model) {
         User user = new User();
         model.addAttribute("user", user);
@@ -30,7 +30,7 @@ public class UserController {
         return "redirect:/userList";
     }
 
-    @RequestMapping("/userList")
+    @GetMapping("/userList")
     public String userList(Model model) {
         List<User> userList = userService.listAll();
         model.addAttribute("userList", userList);

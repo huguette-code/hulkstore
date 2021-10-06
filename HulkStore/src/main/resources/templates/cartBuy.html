@@ -38,10 +38,11 @@
 						<td th:text="${product.id}">Product ID</td>
 						<td th:text="${product.name}">Name</td>
 						<td>
-							<select th:field="*{quantity}" onchange="updateValueTotal()" id="comboQuantity">
+							<!--select th:field="*{quantity}" onchange="updateValueTotal()" id="comboQuantity">
 							    <option th:each="i : ${#numbers.sequence(1, product.quantity)}" th:value="${i}" th:text="${i}">
 							    </option>
-							</select>
+							</select-->
+							<input type="text" th:field="*{quantity}" />
 						</td>
 						<td th:text="${product.price}" id="price">Price</td>
 					</tr>
@@ -52,7 +53,8 @@
 						
 					<tr>
 					<tr>
-						<td colspan="4" th:text="Client"></td>
+						<td colspan="1">Client:</td>
+						<td colspan="3"><span th:text="${#request.userPrincipal.name}"></span></td>
 					<tr>
 					<tr>
 						<td colspan="4" th:text="${total_order != null?'Total:'+total_order:'Total:'}" id="total_order"></td>
@@ -60,12 +62,11 @@
 				</tbody>
 			</table>
 			<br><br>
-	<!-- 		Client Name: <input type="text" th:field="*{clientName}" /> -->
-			<br><br>
-			<span th:if="${stockErrorMessage}" style="color: red;">sadasd${stockErrorMessage}</span>
-			<input type="hidden" th:field="*{product_order.id}" value="${product.id}" />
-			<input type="hidden" th:field="*{state_order}" value="${state_order}" />
-			<input type="hidden" th:field="*{total_order}" id="total_order_f" />
+			<div class="alert alert-info" th:if="${param.stockErrorMessage}" th:utext="${param.stockErrorMessage}" style="color: red;">${stockErrorMessage}</div>
+			<br>
+			<input type="hidden" th:field="*{productOrder.id}" value="${product.id}" />
+			<input type="hidden" th:field="*{stateOrder}" value="${stateOrder}" />
+			<input type="hidden" th:field="*{totalOrder}" id="total_order_f" />
 			<button type="button" onclick='javascript:window.history.back()' >Cancel</button>
 			<button type="submit" formmethod="post">Buy</button>
 			</form>

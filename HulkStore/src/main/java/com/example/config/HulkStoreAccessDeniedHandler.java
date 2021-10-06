@@ -15,14 +15,14 @@ import java.io.IOException;
 
 @Component
 public class HulkStoreAccessDeniedHandler implements AccessDeniedHandler {
-    private static Logger LOGGER = LoggerFactory.getLogger(HulkStoreAccessDeniedHandler.class);
+    private static Logger logger = LoggerFactory.getLogger(HulkStoreAccessDeniedHandler.class);
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null) {
-            LOGGER.info(String.format("User '%s' is try to access at private URL: %s", auth.getName(), request.getRequestURI()));
+            logger.info("User is try to access at private URL");
         }
 
         response.sendRedirect(request.getContextPath() + "/403");

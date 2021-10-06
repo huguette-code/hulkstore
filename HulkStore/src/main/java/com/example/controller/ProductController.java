@@ -13,7 +13,7 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    @GetMapping(value = "/new")
     public String showNewProductPage(Model model) {
         Product product = new Product();
         model.addAttribute("product", product);
@@ -26,7 +26,7 @@ public class ProductController {
         service.save(product);
         return "redirect:/home";
     }
-    @RequestMapping("/edit/{id}")
+    @GetMapping("/edit/{id}")
     public ModelAndView showEditProductPage(@PathVariable(name = "id") int id) {
         ModelAndView mav = new ModelAndView("edit_product");
         Product product = service.get(id);
@@ -35,7 +35,7 @@ public class ProductController {
         return mav;
     }
 
-    @RequestMapping("/delete/{id}")
+    @GetMapping(path= "/delete/{id}")
     public String deleteProduct(@PathVariable(name = "id") int id) {
         service.delete(id);
         return "redirect:/home";

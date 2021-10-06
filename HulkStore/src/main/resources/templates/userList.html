@@ -31,7 +31,7 @@
             <td><span th:text="${user.id}"></span></td>
             <td><span th:text="${user.name} + ' ' + ${user.surname}"></span></td>
             <td><span th:text="${user.username}"></span></td>
-            <td><span th:text="${user.date_register}"></span></td>
+            <td><span th:text="${user.dateRegister}"></span></td>
             <td><span th:text="${user.state}"></span></td>
             <td>
             	<a th:href="@{'/user/delete/' + ${user.id}}" class="buttons">
