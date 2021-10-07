@@ -66,15 +66,18 @@ public class OrderService {
      * @throws ProductOutOfStockException
      */
     public void processOrder(Order order) throws ProductOutOfStockException {
-        Product product = productRepository.findById(order.getProductOrder().getId()).get();
-        if(product.getQuantity() < order.getQuantity())
-            throw new ProductOutOfStockException();
+        Optional<Product> optProduct = productRepository.findById(order.getProductOrder().getId());
+        if(optProduct.isPresent()) {
+            Product product = optProduct.get();
+            if (product.getQuantity() < order.getQuantity())
+                throw new ProductOutOfStockException();
 
-        //update stock product.
-        int newQuantity = product.getQuantity() - order.getQuantity();
-        product.setQuantity(newQuantity);
-        productRepository.save(product);
+            //update stock product.
+            int newQuantity = product.getQuantity() - order.getQuantity();
+            product.setQuantity(newQuantity);
+            productRepository.save(product);
 
-        repo.save(order);
+            repo.save(order);
+        }
     }
 }

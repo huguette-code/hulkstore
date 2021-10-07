@@ -38,19 +38,6 @@ public class OrderController {
     }
     @PostMapping(path = "/buyConfirm")
     public ModelAndView buyConfirmProduct(@ModelAttribute("order") Order order) {
-        /*ModelAndView mav;
-        Product product = service.get(order.getProductOrder().getId());
-        if(product.getQuantity() >= order.getQuantity()) {
-            int newQuantity = product.getQuantity() - order.getQuantity();
-            product.setQuantity(newQuantity);
-            service.save(product);
-            orderService.save(order);
-            mav = new ModelAndView("redirect:/home");
-        }else {
-            mav = new ModelAndView("redirect:/buy/"+order.getProductOrder().getId());
-            mav.addObject("stockErrorMessage", "It product without stock.");
-        }*/
-
         ModelAndView mav;
         try {
             orderService.processOrder(order);
@@ -62,7 +49,7 @@ public class OrderController {
         return mav;
     }
 
-    @RequestMapping(value = "/orderList")
+    @GetMapping(value = "/orderList")
     public String orderList(Model model) {
         List<Order> orders = orderService.listAll();
         model.addAttribute("listOrder", orders);

@@ -19,7 +19,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     final DataSource dataSource;
     private final AccessDeniedHandler accessDeniedHandler;
 
-    private String homePath ="/home";
+    @Value("${spring.home.path}")
+    private String homePath;
 
     @Autowired
     public SecurityConfiguration(AccessDeniedHandler accessDeniedHandler, DataSource dataSource) {

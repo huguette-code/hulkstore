@@ -15,7 +15,7 @@ public class RegisterController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value="/register", method = RequestMethod.GET)
+    @GetMapping(value="/register")
     public String registrationPage(Model model) {
         User user = new User();
         model.addAttribute("user", user);
@@ -23,7 +23,7 @@ public class RegisterController {
         return "register";
     }
 
-    @RequestMapping(value="/register", method = RequestMethod.POST)
+    @PostMapping(value="/register")
     public ModelAndView saveRegister(@ModelAttribute("user") User user,  BindingResult bindingResult) {
         if (userService.findByEmail(user.getEmail()).isPresent()) {
             bindingResult.rejectValue("email", "error.user", "There is already a user with this email");
