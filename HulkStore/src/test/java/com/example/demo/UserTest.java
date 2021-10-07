@@ -25,7 +25,7 @@ public class UserTest {
         //user.setNickname("User1");
         user.setPassword("password");
         //user.setRol("ADMIN");
-        userService.save(user);
+        userService.save(user, false);
         assertNotEquals(userService.get(user.getId()), null);
     }
     @Test

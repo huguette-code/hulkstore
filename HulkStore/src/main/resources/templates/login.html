@@ -1,86 +1,76 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 <head>
-	<meta charset="utf-8" />
-	<title>Hulk Store - Login</title>
-</head>
-
-<body>
-	<h2>Hulk Store - Login Page</h2>
-
+	<title>Hulk Store</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<style>
-		/* Full-width inputs */
-		input[type=text],
-		input[type=password] {
-			width: 100%;
-			padding: 12px 20px;
-			margin: 8px 0;
-			display: inline-block;
-			border: 1px solid #ccc;
-			box-sizing: border-box;
+		#login .container #login-row #login-column #login-box {
+		  margin-top: 120px;
+		  height: 320px;
+		  border: 1px solid #9C9C9C;
+		  background-color: #EAEAEA;
+		}
+		#login .container #login-row #login-column #login-box #login-form {
+		  padding: 20px;
+		}
+		#login .container #login-row #login-column #login-box #login-form #register-link {
+		  margin-top: -85px;
+		}
+		footer {
+		  background-color: #f2f2f2;
+		  padding: 25px;
 		}
 
-		/* Set a style for all buttons */
-		button {
-			background-color: #04AA6D;
-			color: white;
-			padding: 14px 20px;
-			margin: 8px 0;
-			border: none;
-			cursor: pointer;
-			width: 100%;
-		}
+  </style>
+</head>
+<body>
 
-		/* Add a hover effect for buttons */
-		button:hover {
-			opacity: 0.8;
-		}
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+	</div>
+</nav>
+<h3 class="text-center text-white pt-5">Login form</h3>
+<div id="login">
+	<div class="container justify-content-center">
+		<div id="login-row" class="row justify-content-center align-items-center">
+			<div id="login-column" class="col-md-6">
+				<div id="login-box" class="col-md-12">
+					<form id="login-form" class="form" th:action="@{/login}" method="post">
+						<h3 class="text-center text-info">Login</h3>
+						<div class="form-group">
+							<label for="username" class="text-info">Username:</label><br>
+							<input type="text" name="username" id="username" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="password" class="text-info">Password:</label><br>
+							<input type="password" name="password" id="password" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-primary btn-block" value="Login"/>
+						</div>
+						<div class="form-group alert alert-danger" th:if="${param.error}">
+							Invalid username and password.
+						</div>
+						<div class="form-group"><br></div>
 
-		/* Center the avatar image inside this container */
-		.imgcontainer {
-			margin: 24px 0 12px 0;
-		}
+					</form>
+				</div>
 
-		/* Avatar image */
-		img.avatar {
-			width: 10%;
-			border-radius: 50%;
-			text-align: center;
-		}
-
-		/* Add padding to containers */
-		.container {
-			padding: 16px;
-			width: 50%;
-			text-align: center;
-		}
-
-		/* The "Forgot password" text */
-		span.psw {
-			float: right;
-			padding-top: 16px;
-		}
-	</style>
-	<form th:action="@{/login}" method="post">
-		<div class="container">
-			<div class="imgcontainer">
-				<img src="https://i.pinimg.com/originals/e9/80/f7/e980f7be96698681e64bac92221cfb7d.png" alt="Avatar"
-					class="avatar">
 			</div>
-			<label for="uname"><b>Username</b></label>
-			<input type="text" placeholder="Enter Username" name="username" required>
-
-			<label for="psw"><b>Password</b></label>
-			<input type="password" placeholder="Enter Password" name="password" required>
-
-			<button type="submit">Login</button>
-			<br>
-			<span th:if="${param.error}" style="color: red;">Check you name and password please!</span>
 		</div>
-	</form>
+	</div>
+</div>
 
+
+<br>
+<br>
+
+<footer class="container-fluid text-center">
+	<p>© 2021 Copyright: <b>Hulk Store<b></p>
+</footer>
 
 </body>
-
 </html>

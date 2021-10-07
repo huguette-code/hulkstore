@@ -4,6 +4,7 @@
 package com.example.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -29,7 +30,7 @@ public class Role implements Serializable {
 	private String name;
 
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "roles")
-	private Set<User> users;
+	private Collection<User> users;
 
 	/**
 	 * @return the id
@@ -63,7 +64,7 @@ public class Role implements Serializable {
 	 *
 	 * @param users
 	 */
-	public void setUsers(Set<User> users) {
+	public void setUsers(Collection<User> users) {
 		this.users = users;
 	}
 
@@ -71,7 +72,7 @@ public class Role implements Serializable {
 	 *
 	 * @return
 	 */
-	public Set<User> getUsers() {
+	public Collection<User> getUsers() {
 		return users;
 	}
 

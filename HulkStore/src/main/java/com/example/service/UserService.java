@@ -32,12 +32,15 @@ public class UserService {
         return userRepository.findAll();
     }
      
-    public void save(User user) {
+    public void save(User user, boolean isRegister) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setState(1);
-        user.setRoles(Collections.singletonList(rolRepository.findByName("USER_ROLE")));
-
-        userRepository.save(user);
+        if(isRegister){
+            user.setRoles(Collections.singletonList(rolRepository.findByName("ROLE_USER")));
+        }else{
+            user.setRoles(Collections.singletonList(rolRepository.findByName("ROLE_ADMIN")));
+        }
+        userRepository.saveAndFlush(user);
     }
      
     public User get(long id) {
@@ -50,6 +53,13 @@ public class UserService {
      
     public void delete(long id) {
         userRepository.deleteById(id);
+    }
+
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 }

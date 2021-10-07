@@ -19,8 +19,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     final DataSource dataSource;
     private final AccessDeniedHandler accessDeniedHandler;
 
-    @Value("${spring.home.path}")
-    private String homePath;
+    private String homePath ="/home";
 
     @Autowired
     public SecurityConfiguration(AccessDeniedHandler accessDeniedHandler, DataSource dataSource) {
@@ -50,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers( homePath,"/new", "/edit/**", "/delete/**","/buy/**","/orderList","/order/**","/userList","/user/**").permitAll()
+                .antMatchers( homePath,"/new", "/edit/**", "/delete/**","/buy/**","/orderList","/order/**","/userList","/user/**","/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

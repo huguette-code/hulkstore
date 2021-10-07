@@ -62,7 +62,7 @@ public class OrderController {
         return mav;
     }
 
-    @GetMapping("/orderList")
+    @RequestMapping(value = "/orderList")
     public String orderList(Model model) {
         List<Order> orders = orderService.listAll();
         model.addAttribute("listOrder", orders);

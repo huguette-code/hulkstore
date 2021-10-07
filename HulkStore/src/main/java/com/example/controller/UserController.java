@@ -26,7 +26,7 @@ public class UserController {
     @PostMapping(path = "/saveUser")
     public String saveProduct(@ModelAttribute("user") User user) {
         user.setState(1);
-        userService.save(user);
+        userService.save(user, false);
         return "redirect:/userList";
     }
 

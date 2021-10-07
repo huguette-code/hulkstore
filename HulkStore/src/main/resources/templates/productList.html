@@ -1,54 +1,104 @@
-<th:block th:include="/_header"></th:block>
-<th:block th:include="/menu"></th:block>
-<br />
-<div align="center">
-	<h1>Product List</h1>
-	<th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
-	<a href="/new" class="buttons">
-		<img src="https://cdn-icons-png.flaticon.com/512/992/992651.png" width="25px">&nbsp;Add New Product
-	</a>
-</th:block>
-</div>
-<br />
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+					  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+	<title>Hulk Store</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script>
+		$(document).ready(function(){
+		  $("#myInput").on("keyup", function() {
+			var value = $(this).val().toLowerCase();
+			$("#listProduct").filter(function() {
+			  $(this).toggle($(this).text().trim().toLowerCase().indexOf(value) > -1)
+			});
+		  });
+		 });
+	</script>
+	<style>
+		.navbar {
+		  margin-bottom: 50px;
+		  border-radius: 0;
+		}
+		footer {
+		  background-color: #f2f2f2;
+		  padding: 25px;
+		}
+  </style>
+</head>
+<body>
 
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Hulk Store</a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/home">Home</a></li>
+				<li sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="/orderList">Order List</a></li>
+				<li sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="/userList">User List</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right" sec:authorize="!isAuthenticated()">
+				<li><a th:href="@{/login}"><span class="glyphicon glyphicon-user" ></span> Login</a></li>
+				<li><a th:href="@{/register}"><span class="glyphicon"></span> Register</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+				<li class="active"><a>Welcome <b><span th:utext="${#request.userPrincipal.name}" style="text-decoration: underline;"></span></b></a></li>
+				<li class="active"><a th:href="@{/logout}">Logout</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
 
+<div class="container">
+	<div class="alert alert-primary" role="alert" th:if="${listProducts.empty}">
+		<b>No Products Available</b>
+	</div>
+	<div sec:authorize="hasAuthority('ROLE_ADMIN')" style="text-align: right;">
+		<a th:href="@{/new}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add New Product</a>
+	</div>
+	<br>
 
-
-<div th:if="${listProducts.empty}">
- <b>No Products Available</b>
-</div>	
-<div class="content" th:each="product : ${listProducts}" style="text-align: center;">
-	<div class="left" th:if="${product.quantity > 0}">
-		<img src="https://dummyimage.com/200.png/09f/fff" alt="Card image cap">
-		<br><br>
-		<b th:text="${product.name}"></b>
+	<div class="row">
+		<input class="form-control" id="myInput" type="text" placeholder="Search.." th:if="${!listProducts.empty}">
 		<br>
-		<h4 th:remove="tag"> Product ID:</h4><span th:text="${product.id}"></span>
-		<br>
-		<h4 th:remove="tag"> Quantity: </h4><span th:text="${product.quantity}"></span>
-		<br>
-		<h4 th:remove="tag">Price: $</h4><span th:text="${product.price}"></span>
-		<br>
-		<div>
-			<div sec:authorize="hasAuthority('ROLE_ADMIN')" >
-				<a th:href="@{'/edit/' + ${product.id}}" class="buttons">
-					<img src="https://image.flaticon.com/icons/png/512/84/84380.png" width="25px">
-				</a>
-				&nbsp;&nbsp;&nbsp;
-				<a th:href="@{'/delete/' + ${product.id}}" class="buttons">
-					<img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/delete-1961630-1659595.png"
-						width="25px">
-				</a>
+		<div class="col-sm-4" th:each="product : ${listProducts}" id="listProduct">
+			<div class="panel panel-primary">
+				<div class="panel-heading" id="panel-heading" th:text="${product.name}"></div>
+				<div class="panel-body"><img src="https://dummyimage.com/200.png/09f/fff" class="img-responsive" style="width:100%" alt="Image"></div>
+				<div class="panel-footer">
+					<h4 th:remove="tag"> Product ID:</h4><span th:text="${product.id}"></span>
+					<br>
+					<h4 th:remove="tag"> Quantity: </h4><span th:text="${product.quantity}"></span>
+					<br>
+					<h4 th:remove="tag">Price: $</h4><span th:text="${product.price}"></span>
+					<div>
+						<div style="text-align: right;">
+							<a th:href="@{'/edit/' + ${product.id}}" class="glyphicon glyphicon-edit" sec:authorize="hasAuthority('ROLE_ADMIN')"></a>
+							<a th:href="@{'/delete/' + ${product.id}}" class="glyphicon glyphicon-trash" sec:authorize="hasAuthority('ROLE_ADMIN')"></a>
+							<a th:href="@{'/buy/' + ${product.id}}" class="glyphicon glyphicon-shopping-cart" sec:authorize="hasAuthority('ROLE_USER')"></a>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div sec:authorize="hasAuthority('ROLE_USER')">
-				<a th:href="@{'/buy/' + ${product.id}}" class="buttons"
-					onclick="addProductCard('${product.id}','${product.name}','${product.price}')">
-					<img src="https://www.iconpacks.net/icons/2/free-add-to-cart-icon-3046-thumb.png" width="25px">
-				</a>
-			</div>
-
 		</div>
 	</div>
 </div>
+<br>
+<br>
 
-<th:block th:include="/_footer"></th:block>
+<footer class="container-fluid text-center">
+	<p>© 2021 Copyright: <b>Hulk Store<b></p>
+</footer>
+
+</body>
+</html>

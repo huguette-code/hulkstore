@@ -1,76 +1,123 @@
-<th:block th:include="/_header"></th:block>
-<th:block th:include="/menu"></th:block>
-<br />
-<div align="center">
-	<h1>BUY PRODUCT</h1>
-</div>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<title>Hulk Store</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$( document ).ready(function() {
 			jQuery('#total_order').text("Total: "+jQuery('#price').text());
 			jQuery('#total_order_f').val(jQuery('#price').text());
-		});	
-		
+		});
+
 		function updateValueTotal(){
-			var quantity = jQuery('#comboQuantity option:selected').text();
-			var total_order = jQuery('#price').text() * quantity; 
+			var quantity = jQuery('#quantity').val();
+			var total_order = jQuery('#price').text() * quantity;
 			console.log("Price:"+jQuery('#price').text());
 			console.log("quantity:"+quantity);
 			jQuery('#total_order').text("Total: "+total_order);
 			jQuery('#total_order_f').val(total_order);
 		}
 	</script>
-	<div align="center">
-			<form action="#" th:action="@{/buyConfirm}" th:object="${order}"
-	            method="post">
-			<table border="1" cellpadding="10">
-				<thead>
-					<tr>
-						<th>Product ID</th>
-						<th>Name</th>
-						<th>Quantity</th>
-						<th>Price</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td th:text="${product.id}">Product ID</td>
-						<td th:text="${product.name}">Name</td>
-						<td>
-							<!--select th:field="*{quantity}" onchange="updateValueTotal()" id="comboQuantity">
-							    <option th:each="i : ${#numbers.sequence(1, product.quantity)}" th:value="${i}" th:text="${i}">
-							    </option>
-							</select-->
-							<input type="text" th:field="*{quantity}" />
-						</td>
-						<td th:text="${product.price}" id="price">Price</td>
-					</tr>
-					<tr>
-						<td colspan="1">Description:</td>
-						<td colspan="3"><input type="text" th:field="*{description}" /></td>
-					</tr>
-						
-					<tr>
-					<tr>
-						<td colspan="1">Client:</td>
-						<td colspan="3"><span th:text="${#request.userPrincipal.name}"></span></td>
-					<tr>
-					<tr>
-						<td colspan="4" th:text="${total_order != null?'Total:'+total_order:'Total:'}" id="total_order"></td>
-					<tr>
-				</tbody>
-			</table>
-			<br><br>
-			<div class="alert alert-info" th:if="${param.stockErrorMessage}" th:utext="${param.stockErrorMessage}" style="color: red;">${stockErrorMessage}</div>
-			<br>
-			<input type="hidden" th:field="*{productOrder.id}" value="${product.id}" />
-			<input type="hidden" th:field="*{stateOrder}" value="${stateOrder}" />
-			<input type="hidden" th:field="*{totalOrder}" id="total_order_f" />
-			<button type="button" onclick='javascript:window.history.back()' >Cancel</button>
-			<button type="submit" formmethod="post">Buy</button>
-			</form>
-		</div>	
-</body>
+	<style>
+		.navbar {
+		  margin-bottom: 50px;
+		  border-radius: 0;
+		}
+		footer {
+		  background-color: #f2f2f2;
+		  padding: 25px;
+		}
+ 	</style>
+</head>
+<body>
 
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Hulk Store</a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav">
+				<li><a href="/home">Home</a></li>
+				<li sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="/orderList">Order List</a></li>
+				<li class="active" sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="/userList">User List</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right" sec:authorize="!isAuthenticated()">
+				<li><a href="@{/login}"><span class="glyphicon glyphicon-user" ></span> Login</a></li>
+				<li><a href="#"><span class="glyphicon"></span> Register</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+				<li class="active"><a>Welcome <b><span th:utext="${#request.userPrincipal.name}" style="text-decoration: underline;"></span></b></a></li>
+				<li class="active"><a th:href="@{/logout}">Logout</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>BUY PRODUCT</h1>
+	<form action="#" th:action="@{/buyConfirm}" th:object="${order}" method="post">
+		<table cellpadding="10" class="table table-bordered">
+			<thead>
+			<tr>
+				<th>Product ID</th>
+				<th>Name</th>
+				<th>Quantity</th>
+				<th>Price</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${product.id}">Product ID</td>
+					<td th:text="${product.name}">Name</td>
+					<td>
+						<input type="number" id="quantity" th:field="*{quantity}" onfocusout="updateValueTotal()" class="form-control" min="1" value="1" required/>
+					</td>
+					<td th:text="${product.price}" id="price" >Price</td>
+				</tr>
+				<tr>
+					<td colspan="1">Description:</td>
+					<td colspan="3"><input type="text" th:field="*{description}" class="form-control" required/></td>
+				</tr>
+
+				<tr>
+					<td colspan="1">Client:</td>
+					<td colspan="3"><span th:text="${#request.userPrincipal.name}"></span></td>
+				</tr>
+				<tr>
+					<td colspan="4" th:text="${total_order != null?'Total:'+total_order:'Total:'}" id="total_order"></td>
+				</tr>
+				<tr>
+					<td colspan="4" style="text-align: center;">
+						<input type="hidden" th:field="*{productOrder.id}" value="${product.id}" />
+						<input type="hidden" th:field="*{stateOrder}" value="${stateOrder}" />
+						<input type="hidden" th:field="*{totalOrder}" id="total_order_f" />
+						<button type="button" onclick='javascript:window.history.back()' >Cancel</button>
+						<button type="submit" formmethod="post">Buy</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<div class="alert alert-danger" th:if="${param.stockErrorMessage}" th:utext="${param.stockErrorMessage}" style="color: red;">${stockErrorMessage}</div>
+		<br>
+	</form>
+</div>
+<br>
+<br>
+
+<footer class="container-fluid text-center">
+	<p>© 2021 Copyright: <b>Hulk Store<b></p>
+</footer>
+
+</body>
 </html>

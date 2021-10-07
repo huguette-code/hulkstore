@@ -1,48 +1,90 @@
-<th:block th:include="/_header"></th:block>
-<th:block th:include="/menu"></th:block>
-<br />
-<div align="center">
-	<h1>User List</h1>
-	<th:block sec:authorize="isAuthenticated()">
-		<a href="/newUser" class="buttons">
-			<img src="https://cdn-icons-png.flaticon.com/512/992/992651.png" width="25px">&nbsp;Add New User
-		</a>
-	</th:block>	
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hulk Store</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+		.navbar {
+		  margin-bottom: 50px;
+		  border-radius: 0;
+		}
+		footer {
+		  background-color: #f2f2f2;
+		  padding: 25px;
+		}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Hulk Store</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/home">Home</a></li>
+                <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="/orderList">Order List</a></li>
+                <li class="active" sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="/userList">User List</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="!isAuthenticated()">
+                <li><a href="@{/login}"><span class="glyphicon glyphicon-user" ></span> Login</a></li>
+                <li><a href="#"><span class="glyphicon"></span> Register</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                <li class="active"><a>Welcome <b><span th:utext="${#request.userPrincipal.name}" style="text-decoration: underline;"></span></b></a></li>
+                <li class="active"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="alert alert-primary" role="alert" th:if="${userList.empty}">
+        <b>No Users Available</b>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col"> ID </th>
+                <th scope="col"> NAME </th>
+                <th scope="col"> USERNAME </th>
+                <th scope="col"> DATE REGISTER </th>
+                <th scope="col"> USER STATE </th>
+                <th scope="col"> ACTION </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${userList}">
+                <td scope="row"><span th:text="${user.id}"></span></td>
+                <td><span th:text="${user.name} + ' ' + ${user.surname}"></span></td>
+                <td><span th:text="${user.username}"></span></td>
+                <td><span th:text="${user.dateRegister}"></span></td>
+                <td><span th:text="${user.state}"></span></td>
+                <td>
+                    <a th:href="@{'/user/delete/' + ${user.id}}" class="glyphicon glyphicon-trash"></a>
+                    <a th:href="@{'/user/edit/' + ${user.id}}" class="glyphicon glyphicon-edit"></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
-<br />
-<div align="center">
-<table border="1" style="margin:20px;text-align: center;">
-    <thead>
-        <tr>
-            <th> ID </th>
-            <th> NAME </th>
-            <th> USERNAME </th>
-            <th> DATE REGISTER </th>
-            <th> USER STATE </th>
-            <th> ACTION </th>
-        </tr>
-    </thead>
-    <tbody>
-	<tr th:if="${userList.empty}">
-            <td colspan="2"> No Users Available </td>
-        </tr>
-        
-        <tr th:each="user : ${userList}">
-            <td><span th:text="${user.id}"></span></td>
-            <td><span th:text="${user.name} + ' ' + ${user.surname}"></span></td>
-            <td><span th:text="${user.username}"></span></td>
-            <td><span th:text="${user.dateRegister}"></span></td>
-            <td><span th:text="${user.state}"></span></td>
-            <td>
-            	<a th:href="@{'/user/delete/' + ${user.id}}" class="buttons">
-					<img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/delete-1961630-1659595.png" width="25px">
-				</a>
-				<a th:href="@{'/user/edit/' + ${user.id}}" class="buttons">
-					<img src="https://image.flaticon.com/icons/png/512/84/84380.png" width="25px">
-				</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
-</div>
-<th:block th:include="/_footer">sddd</th:block>
+<br>
+<br>
+
+<footer class="container-fluid text-center">
+    <p>© 2021 Copyright: <b>Hulk Store<b></p>
+</footer>
+
+</body>
+</html>

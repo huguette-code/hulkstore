@@ -1,44 +1,87 @@
-<th:block th:include="/_header"></th:block>
-<th:block th:include="/menu"></th:block>
-<br />
-<div align="center">
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<title>Hulk Store</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<style>
+		.navbar {
+		  margin-bottom: 50px;
+		  border-radius: 0;
+		}
+		footer {
+		  background-color: #f2f2f2;
+		  padding: 25px;
+		}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Hulk Store</a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav">
+				<li><a href="/home">Home</a></li>
+				<li sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="/orderList">Order List</a></li>
+				<li class="active" sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="/userList">User List</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right" sec:authorize="!isAuthenticated()">
+				<li><a href="@{/login}"><span class="glyphicon glyphicon-user" ></span> Login</a></li>
+				<li><a href="#"><span class="glyphicon"></span> Register</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+				<li class="active"><a>Welcome <b><span th:utext="${#request.userPrincipal.name}" style="text-decoration: underline;"></span></b></a></li>
+				<li class="active"><a th:href="@{/logout}">Logout</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
 	<h1>Edit User</h1>
-</div>
+	<form  th:action="@{/saveUser}" th:object="${user}"
+		  method="post">
 
-<div align="center">
-	<br />
-	<form action="#" th:action="@{/saveUser}" th:object="${user}"
-		method="post">
-
-		<table border="0" cellpadding="10">
+		<table border="0" cellpadding="10" class="table table-bordered">
 			<tr>
 				<td>User ID:</td>
-				<td><input type="text" th:field="*{id}" readonly="readonly" />
+				<td><input type="text" th:field="*{id}" class="form-control" readonly />
 				</td>
 			</tr>
 			<tr>
 				<td>User Name:</td>
-				<td><input type="text" th:field="*{name}" /></td>
+				<td><input type="text" class="form-control" th:field="*{name}" /></td>
 			</tr>
 			<tr>
 				<td>User Surname:</td>
-				<td><input type="text" th:field="*{surname}" /></td>
+				<td><input type="text" class="form-control" th:field="*{surname}" /></td>
 			</tr>
 			<tr>
 				<td>UserName:</td>
-				<td><input type="text" th:field="*{username}" /></td>
+				<td><input type="text" class="form-control" th:field="*{username}" /></td>
 			</tr>
 			<tr>
 				<td>Password:</td>
-				<td><input type="text" th:field="*{password}" /></td>
+				<td><input type="text" class="form-control" th:field="*{password}" /></td>
 			</tr>
 			<tr>
 				<td>Email:</td>
-				<td><input type="text" th:field="*{email}" /></td>
+				<td><input type="email" class="form-control" th:field="*{email}" /></td>
 			</tr>
 			<tr>
 				<td>Address:</td>
-				<td><input type="text" th:field="*{address}" /></td>
+				<td><input type="text" class="form-control" th:field="*{address}" /></td>
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align: center;">
@@ -49,6 +92,12 @@
 		</table>
 	</form>
 </div>
-</body>
+<br>
+<br>
 
+<footer class="container-fluid text-center">
+	<p>© 2021 Copyright: <b>Hulk Store<b></p>
+</footer>
+
+</body>
 </html>

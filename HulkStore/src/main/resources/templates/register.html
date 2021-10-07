@@ -32,7 +32,7 @@
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="/home">Home</a></li>
+				<li><a href="/home">Home</a></li>
 				<li sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="/orderList">Order List</a></li>
 				<li sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="/userList">User List</a></li>
 			</ul>
@@ -49,32 +49,46 @@
 </nav>
 
 <div class="container">
-	<h1>Create New Product</h1>
-	<form action="#" th:action="@{/save}" th:object="${product}" method="post">
+	<h1>Register in HulkStore</h1>
+	<form th:action="@{/register}" th:object="${user}" method="post">
 		<table border="0" cellpadding="10" class="table table-bordered">
-        	<tr>
-           		<td>Product Name:</td>
-                <td><input type="text" th:field="*{name}" class="form-control" required/></td>
-            </tr>
-            <tr>
-            	<td>Brand:</td>
-                <td><input type="text" class="form-control" th:field="*{brand}" required /></td>
-            </tr>
-            <tr>
-            	<td>Price:</td>
-                <td><input type="number" class="form-control" th:field="*{price}" min="0" required /></td>
-           </tr>
-           <tr>
-           		<td>Quantity:</td>
-                <td><input type="number" class="form-control" th:field="*{quantity}" min="0" required/></td>
-           </tr>
-           <tr>
-           		<td colspan="2" style="text-align: center;">
-					<button type="button" onclick='javascript:window.history.back()' >Cancel</button>
-					<button type="submit" formmethod="post">Save</button>
+			<tr>
+		    	<td>Name:</td>
+		        <td><input type="text" th:field="*{name}" class="form-control" required /></td>
+		    </tr>
+			<tr>
+				<td>Surname:</td>
+			    <td><input type="text" th:field="*{surname}" class="form-control" required/></td>
+			</tr>
+			<tr>
+				<td>
+					Username:
+					<label th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="alert alert-danger"></label>
 				</td>
-           </tr>
-	  </table>
+			    <td><input type="text" th:field="*{username}" class="form-control" required/></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+			    <td><input type="password" th:field="*{password}" class="form-control" required/></td>
+			</tr>
+		    <tr>
+		    	<td>Address:</td>
+		        <td><input type="text" th:field="*{address}" class="form-control" required /></td>
+		    </tr>
+		    <tr>
+		    	<td>
+					Email:
+					<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger"></label>
+				</td>
+		        <td><input type="email" th:field="*{email}" class="form-control" required/></td>
+		    </tr>
+		    <tr>
+		    	<td colspan="2" style="text-align: center;">
+					<button type="button" onclick='javascript:window.history.back()' >Cancel</button>
+					<button type="submit" formmethod="post">Register</button>
+				</td>
+		    </tr>
+		</table>
 	</form>
 </div>
 <br>
